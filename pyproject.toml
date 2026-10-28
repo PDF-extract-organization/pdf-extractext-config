@@ -1,0 +1,31 @@
+[project]
+name = "pdf-extractext-config"
+version = "0.1.0"
+description = "Microservicio que gestiona la configuración centralizada en el KV de Consul"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "py-consul[asyncio]>=1.8.0",
+    "pydantic-settings>=2.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.24.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-m 'not integration'"
+markers = [
+    "integration: requiere un Consul accesible en CONSUL_HOST:CONSUL_PORT",
+]
